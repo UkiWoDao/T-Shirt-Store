@@ -23,6 +23,12 @@ jobs:
         const token = jwt.sign({ user: 'test' }, process.env.JWT_SECRET);"
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
+    - name: Use JWT Secret
+      env:
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      run: |
+        node -e "const jwt = require('jsonwebtoken'); 
+        const token = jwt.sign({ user: 'test' }, process.env.JWT_SECRET);"
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v4
