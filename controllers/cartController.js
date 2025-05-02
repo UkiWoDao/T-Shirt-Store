@@ -12,7 +12,7 @@ export const viewCart = (req, res) => {
 
 // ✅ Add to Cart
 export const addToCart = async (req, res) => {
-  const productId = parseInt(req.body.productId, 10);
+  const productId = Number.parseInt(req.body.productId, 10);
   const selectedSize = req.body.size;
   const quantity = 1;
 
@@ -26,7 +26,7 @@ export const addToCart = async (req, res) => {
 
     // Get the product details
     const product = await db.get(
-      "SELECT * FROM products WHERE id = ?",
+      'SELECT * FROM products WHERE id = ?',
       productId
     );
 
@@ -37,7 +37,7 @@ export const addToCart = async (req, res) => {
 
     // Get the stock level for the selected size
     const stock = await db.get(
-      "SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?",
+      'SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?',
       [productId, selectedSize]
     );
 
@@ -96,7 +96,7 @@ export const addToCart = async (req, res) => {
 
 // ✅ Remove from Cart
 export const removeFromCart = (req, res) => {
-  const productId = parseInt(req.body.productId, 10);
+  const productId = Number.parseInt(req.body.productId, 10);
   const selectedSize = req.body.size;
 
   if (!req.session.cart) {
@@ -124,12 +124,12 @@ export const updateCart = (req, res) => {
     return res.redirect("/cart");
   }
 
-  req.session.cart.forEach((item) => {
+  for (const item of req.session.cart) {
     // Match quantities by key structure "productId_size"
     const key = `${item.productId}_${item.size}`;
-    const newQty = parseInt(updatedQuantities[key], 10);
+    const newQty = Number.parseInt(updatedQuantities[key], 10);
 
-    if (!isNaN(newQty) && newQty > 0) {
+    if (!Number.isNaN(newQty) && newQty > 0) {
       console.log(
         `✅ Updated "${item.name}" (Size: ${item.size}) to Qty: ${newQty}`
       );
@@ -139,7 +139,7 @@ export const updateCart = (req, res) => {
         `❗ Invalid quantity (${newQty}) for "${item.name}" (Size: ${item.size})`
       );
     }
-  });
+  }
 
   res.redirect("/cart");
 };

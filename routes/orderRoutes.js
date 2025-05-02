@@ -24,7 +24,7 @@ router.patch("/:id/status", verifyToken, async (req, res) => {
   }
 
   try {
-    const result = await db.run(`UPDATE orders SET status = ? WHERE id = ?`, [
+    const result = await db.run('UPDATE orders SET status = ? WHERE id = ?', [
       status,
       id,
     ]);

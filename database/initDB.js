@@ -20,7 +20,7 @@ async function init() {
     console.log("⚠️ Dropping existing tables...");
 
     // 🔸 Disable foreign key checks while dropping tables
-    await db.exec(`PRAGMA foreign_keys = OFF;`);
+    await db.exec('PRAGMA foreign_keys = OFF;');
 
     const tables = [
       "shipping_addresses",
@@ -37,7 +37,7 @@ async function init() {
     }
 
     // 🔸 Re-enable foreign key checks
-    await db.exec(`PRAGMA foreign_keys = ON;`);
+    await db.exec('PRAGMA foreign_keys = ON;');
 
     console.log("✅ Creating tables...");
 

@@ -14,11 +14,11 @@ router.post("/", async (req, res) => {
 
   try {
     const stock = await db.get(
-      `SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?`,
+      'SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?',
       [productId, size]
     );
 
-    if (!stock || stock.quantity < parseInt(quantity)) {
+    if (!stock || stock.quantity < Number.parseInt(quantity)) {
       return res.status(400).json({
         error: `Only ${stock ? stock.quantity : 0} left for "${name}" (Size: ${size}).`,
       });
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
       name,
       price,
       size,
-      quantity: parseInt(quantity),
+      quantity: Number.parseInt(quantity),
       image,
     });
 

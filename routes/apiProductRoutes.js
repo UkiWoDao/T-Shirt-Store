@@ -5,7 +5,7 @@ import products from "../data/productSeedData.js";
 
 // GET /api/products/:id → Get full product info by ID
 router.get("/products/:id", (req, res) => {
-  const productId = parseInt(req.params.id);
+  const productId = Number.parseInt(req.params.id);
   const product = products.find((p) => p.id === productId);
 
   if (!product) {

@@ -4,7 +4,7 @@ import dbPromise from "../database/db.js";
 export const showHomePage = async (req, res) => {
   try {
     const db = await dbPromise;
-    const products = await db.all("SELECT * FROM products");
+    const products = await db.all('SELECT * FROM products');
 
     const cart = req.session.cart || [];
 
@@ -18,9 +18,9 @@ export const showHomePage = async (req, res) => {
 // Show Single Product (Product Detail Page)
 export const showProductDetail = async (req, res) => {
   const { id } = req.params;
-  const productId = parseInt(id, 10);
+  const productId = Number.parseInt(id, 10);
 
-  if (isNaN(productId)) {
+  if (Number.isNaN(productId)) {
     return res.status(400).send("Invalid product ID");
   }
 
@@ -28,7 +28,7 @@ export const showProductDetail = async (req, res) => {
     const db = await dbPromise;
 
     const product = await db.get(
-      "SELECT * FROM products WHERE id = ?",
+      'SELECT * FROM products WHERE id = ?',
       productId,
     );
     if (!product) {
@@ -36,7 +36,7 @@ export const showProductDetail = async (req, res) => {
     }
 
     const stock = await db.all(
-      "SELECT size, quantity FROM product_stock WHERE product_id = ?",
+    'SELECT size, quantity FROM product_stock WHERE product_id = ?',
       productId,
     );
 

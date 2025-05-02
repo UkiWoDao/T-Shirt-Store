@@ -24,9 +24,9 @@ router.get("/", async (req, res) => {
 
 // Product detail page → Show product with sizes
 router.get("/product/:id", async (req, res) => {
-  const productId = parseInt(req.params.id);
+  const productId = Number.parseInt(req.params.id);
 
-  if (isNaN(productId)) {
+  if (Number.isNaN(productId)) {
     return res.status(400).send("Invalid product ID");
   }
 

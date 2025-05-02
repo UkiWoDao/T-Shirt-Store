@@ -29,10 +29,10 @@ router.get("/", async (req, res) => {
 // Product detail page → Show a single product with sizes
 router.get("/product/:id", async (req, res) => {
   // Get product ID from URL parameters, convert it to a number
-  const productId = parseInt(req.params.id);
+  const productId = Number.parseInt(req.params.id);
 
   // Check if productId is a valid number
-  if (isNaN(productId)) {
+  if (Number.isNaN(productId)) {
     return res.status(400).send("Invalid product ID");
   }
 

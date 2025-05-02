@@ -6,6 +6,7 @@ build/
 coverage/
 *.log
 database/.smbdelete*
+database/ecommerce.db
 
 # Playwright
 /test-results/

@@ -129,7 +129,7 @@ export const processCheckout = async (req, res) => {
       const { productId, size, quantity } = item;
 
       const stock = await db.get(
-        `SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?`,
+        'SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?',
         [productId, size]
       );
 
@@ -188,7 +188,7 @@ export const processCheckout = async (req, res) => {
 
     // ✅ Check if a shipping address exists for this user+order
     const existingAddress = await db.get(
-      `SELECT id FROM shipping_addresses WHERE order_id = ? AND user_id = ?`,
+      'SELECT id FROM shipping_addresses WHERE order_id = ? AND user_id = ?',
       [orderId, user?.id || null]
     );
 
@@ -265,7 +265,7 @@ export const showCheckoutSuccess = async (req, res) => {
   try {
     const db = await dbPromise;
 
-    const order = await db.get(`SELECT * FROM orders WHERE id = ?`, [orderId]);
+    const order = await db.get('SELECT * FROM orders WHERE id = ?', [orderId]);
 
     if (!order) {
       console.warn(`⚠️ No order found with ID: ${orderId}`);
@@ -273,7 +273,7 @@ export const showCheckoutSuccess = async (req, res) => {
     }
 
     const shippingAddress = await db.get(
-      `SELECT * FROM shipping_addresses WHERE order_id = ?`,
+      'SELECT * FROM shipping_addresses WHERE order_id = ?',
       [orderId]
     );
 
@@ -334,12 +334,17 @@ export const placeOrder = async (req, res) => {
 
   const db = await dbPromise;
 
-  let fullName, email, street, city, postcode, country;
+  let fullName;
+  let email;
+  let street;
+  let city;
+  let postcode;
+  let country;
 
   // 👤 Registered user
   if (user) {
     const address = await db.get(
-      `SELECT * FROM shipping_addresses WHERE user_id = ? ORDER BY id DESC LIMIT 1`,
+      'SELECT * FROM shipping_addresses WHERE user_id = ? ORDER BY id DESC LIMIT 1',
       [user.id]
     );
 
@@ -373,7 +378,7 @@ export const placeOrder = async (req, res) => {
     // ✅ Validate stock before continuing
     for (const item of cart) {
       const stock = await db.get(
-        `SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?`,
+        'SELECT quantity FROM product_stock WHERE product_id = ? AND size = ?',
         [item.productId, item.size]
       );
 
