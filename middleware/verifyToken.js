@@ -6,7 +6,7 @@ dotenv.config();
 const verifyToken = (req, res, next) => {
   console.log("✅ verifyToken middleware hit");
 
-  const authHeader = req.headers["authorization"];
+  const authHeader = req.headers.authorization;
 
   if (!authHeader) {
     console.log("❌ No Authorization header provided");

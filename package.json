@@ -7,7 +7,9 @@
     "dev": "nodemon app.js",
     "start": "node app.js",
     "db": "node ./database/initDB.js",
-    "sqlite": "sqlite3 ./database/ecommerce.db"
+    "sqlite": "sqlite3 ./database/ecommerce.db",
+    "format": "npx @biomejs/biome format --write ./tests",
+    "test": "npx playwright test"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,7 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.14.1",
     "nodemon": "^3.1.9"

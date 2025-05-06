@@ -4,8 +4,8 @@ import session from "express-session";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import bodyParser from "body-parser";
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import setLocals from "./middleware/setLocals.js";
 

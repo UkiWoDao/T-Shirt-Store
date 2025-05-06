@@ -29,20 +29,20 @@ router.get("/products", async (req, res) => {
 });
 
 router.get("/products/:id/stock", async (req, res) => {
-  const productId = parseInt(req.params.id, 10);
-  if (isNaN(productId)) return res.status(400).json({ error: "Invalid ID" });
+  const productId = Number.parseInt(req.params.id, 10);
+  if (Number.isNaN(productId)) return res.status(400).json({ error: "Invalid ID" });
 
   try {
     const db = await dbPromise;
     const product = await db.get(
-      "SELECT id, name FROM products WHERE id = ?",
+      'SELECT id, name FROM products WHERE id = ?',
       productId
     );
 
     if (!product) return res.status(404).json({ error: "Product not found" });
 
     const stock = await db.all(
-      "SELECT size, quantity FROM product_stock WHERE product_id = ?",
+      'SELECT size, quantity FROM product_stock WHERE product_id = ?',
       productId
     );
 

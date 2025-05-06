@@ -3,7 +3,7 @@ const setLocals = (req, res, next) => {
 
   res.locals.user = userInfo;
 
-  if (userInfo && userInfo.name) {
+  if (userInfo?.name) {
     res.locals.firstName = userInfo.name.split(" ")[0];
   } else {
     res.locals.firstName = null;

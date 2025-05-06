@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const db = await dbPromise;
-    const products = await db.all("SELECT * FROM products");
+    const products = await db.all('SELECT * FROM products');
 
     const cart = req.session.cart || [];
 
@@ -42,7 +42,7 @@ router.post("/add-product", async (req, res) => {
         "Description goes here",
         "Uncategorized",
         "Misc",
-        parseFloat(price),
+        Number.parseFloat(price),
         "/images/default.jpg",
       ],
     );

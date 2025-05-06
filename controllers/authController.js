@@ -46,17 +46,17 @@ export const registerUser = async (req, res) => {
 export const apiRegisterUser = async (req, res) => {
   const { name, email, password } = req.body;
 
-  if (!name || name == "") {
+  if (!name || name === "") {
     console.error("❗ Missing name");
     return res.status(400).json({ error: "Invalid registration request", message: "Name can not be empty" });
   }
 
-  if (!email || email == "") {
+  if (!email || email === "") {
     console.error("❗ Missing email");
     return res.status(400).json({ error: "Invalid registration request", message: "Email can not be empty" });
   }
 
-  if (!password || password == "") {
+  if (!password || password === "") {
     console.error("❗ Missing password");
     return res.status(400).json({ error: "Invalid registration request", message: "Password can not be empty" });
   }
