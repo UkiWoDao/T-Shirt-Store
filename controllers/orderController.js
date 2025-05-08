@@ -7,7 +7,7 @@ export const getUserOrders = async (req, res) => {
     const userId = req.user.id; // From verifyToken middleware
 
     // Query all orders for this user
-    const orders = await db.all("SELECT * FROM orders WHERE user_id = ?", [
+    const orders = await db.all('SELECT * FROM orders WHERE user_id = ?', [
       userId,
     ]);
 

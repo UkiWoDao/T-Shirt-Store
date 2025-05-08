@@ -10,14 +10,14 @@ export const registerUser = async (req, res) => {
   try {
     const db = await dbPromise; // <-- wait for the database connection!
 
-    const userExists = await db.get("SELECT * FROM users WHERE email = ?", [
+    const userExists = await db.get('SELECT * FROM users WHERE email = ?', [
       email,
     ]);
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    await db.run("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [
+    await db.run('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', [
       name,
       email,
       password,
@@ -64,7 +64,7 @@ export const apiRegisterUser = async (req, res) => {
   try {
     const db = await dbPromise;
 
-    const userExists = await db.get("SELECT * FROM users WHERE email = ?", [
+    const userExists = await db.get('SELECT * FROM users WHERE email = ?', [
       email,
     ]);
 
@@ -73,7 +73,7 @@ export const apiRegisterUser = async (req, res) => {
     }
 
     const result = await db.run(
-      "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
       [name, email, password]
     );
 
@@ -83,11 +83,11 @@ export const apiRegisterUser = async (req, res) => {
         id: result.lastID,
         name: name,
         email: email,
-      },
+      }
     });
   } catch (error) {
-    console.error("❌ API Registration error:", error);
-    res.status(500).json({ message: "Registration failed" });
+      console.error("❌ API Registration error:", error);
+      res.status(500).json({ message: "Registration failed" });
   }
 };
 
@@ -96,10 +96,10 @@ export const loginUser = async (req, res) => {
 
   try {
     const db = await dbPromise;
-    const user = await db.get("SELECT * FROM users WHERE email = ?", [email]);
+    const user = await db.get('SELECT * FROM users WHERE email = ?', [email]);
 
     if (!user || user.password !== password) {
-      return res.render("login", {
+      return res.status(401).render("login", {
         error: "Invalid email or password",
         success: false,
         cart: req.session.cart || [],
@@ -147,7 +147,7 @@ export const apiLoginUser = async (req, res) => {
 
   try {
     const db = await dbPromise;
-    const user = await db.get("SELECT * FROM users WHERE email = ?", [email]);
+    const user = await db.get('SELECT * FROM users WHERE email = ?', [email]);
 
     if (!user) {
       console.log("❌ No user found for email (API):", email);
@@ -192,7 +192,7 @@ export const updateUserAccount = async (req, res) => {
     const db = await dbPromise;
 
     // Check if user exists
-    const existingUser = await db.get("SELECT * FROM users WHERE id = ?", [id]);
+    const existingUser = await db.get('SELECT * FROM users WHERE id = ?', [id]);
     if (!existingUser) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -252,7 +252,7 @@ export const logoutUser = (req, res) => {
   });
 };
 
-export const apiLogoutUser = (req, res) => {
+export const apiLogoutUser = (res) => {
   res.status(200).json({
     message: "Logout successful (discard token client-side)",
   });

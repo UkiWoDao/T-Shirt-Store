@@ -13,6 +13,9 @@ export const homePage = (page: Page) => {
 		goRegister: async () => {
 			await page.getByText('Register').click();
 		},
+		goLogin: async () => {
+			await page.getByRole('link', { name: 'Login' }).click();
+		},
 		selectSizeFor: async (itemName: string, size: Size) => {
 			await itemCard(itemName)
 				.locator('select[name="size"]')
