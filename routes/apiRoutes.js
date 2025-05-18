@@ -20,7 +20,7 @@ router.use("/checkout", apiCheckoutRoutes);
 router.get("/products", async (req, res) => {
   try {
     const db = await dbPromise;
-    const products = await db.all("SELECT * FROM products");
+    const products = await db.all('SELECT * FROM products');
     res.json(products);
   } catch (error) {
     console.error("❌ Error fetching products:", error);

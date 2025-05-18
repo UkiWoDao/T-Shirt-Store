@@ -52,12 +52,12 @@ router.get("/my-account", ensureAuthenticated, async (req, res) => {
   const db = await dbPromise;
 
   const orders = await db.all(
-    "SELECT * FROM orders WHERE user_id = ?",
+    'SELECT * FROM orders WHERE user_id = ?',
     decodedUser.id
   );
 
   const shippingAddress = await db.get(
-    "SELECT * FROM shipping_addresses WHERE user_id = ?",
+    'SELECT * FROM shipping_addresses WHERE user_id = ?',
     decodedUser.id
   );
 
@@ -89,7 +89,7 @@ router.get(
 
     try {
       const order = await db.get(
-        "SELECT * FROM orders WHERE id = ? AND user_id = ?",
+        'SELECT * FROM orders WHERE id = ? AND user_id = ?',
         [orderId, decodedUser.id]
       );
 
@@ -152,7 +152,7 @@ router.post("/forgot-password", async (req, res) => {
   try {
     const db = await dbPromise;
 
-    const existingUser = await db.get("SELECT * FROM users WHERE email = ?", [
+    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [
       email,
     ]);
 
@@ -167,7 +167,7 @@ router.post("/forgot-password", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    await db.run("UPDATE users SET password = ? WHERE email = ?", [
+    await db.run('UPDATE users SET password = ? WHERE email = ?', [
       hashedPassword,
       email,
     ]);
@@ -205,12 +205,12 @@ router.get(
       const db = await dbPromise;
 
       const userDetails = await db.get(
-        "SELECT name, email FROM users WHERE id = ?",
+        'SELECT name, email FROM users WHERE id = ?',
         userId
       );
 
       const shippingAddress = await db.get(
-        "SELECT * FROM shipping_addresses WHERE user_id = ?",
+        'SELECT * FROM shipping_addresses WHERE user_id = ?',
         userId
       );
 
@@ -254,7 +254,7 @@ router.post(
       const db = await dbPromise;
 
       const existingAddress = await db.get(
-        "SELECT * FROM shipping_addresses WHERE user_id = ?",
+        'SELECT * FROM shipping_addresses WHERE user_id = ?',
         userId
       );
 
@@ -336,7 +336,7 @@ router.post(
       const db = await dbPromise;
 
       const order = await db.get(
-        "SELECT * FROM orders WHERE id = ? AND user_id = ?",
+        'SELECT * FROM orders WHERE id = ? AND user_id = ?',
         [orderId, userId]
       );
 
@@ -345,7 +345,7 @@ router.post(
         return res.redirect("/my-account");
       }
 
-      await db.run("DELETE FROM orders WHERE id = ? AND user_id = ?", [
+      await db.run('DELETE FROM orders WHERE id = ? AND user_id = ?', [
         orderId,
         userId,
       ]);

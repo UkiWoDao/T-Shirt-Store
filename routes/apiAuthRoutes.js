@@ -26,7 +26,7 @@ router.delete("/users/:email", (req, res) => {
   console.log(`🟢 DELETE hit for: ${email}`);
 
   req.app.locals.db.run(
-    "DELETE FROM users WHERE email = ?",
+    'DELETE FROM users WHERE email = ?',
     [email],
     function (err) {
       console.log("🧠 DELETE callback fired");
